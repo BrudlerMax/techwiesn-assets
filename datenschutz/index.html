@@ -1,12 +1,347 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datenschutzerklärung – Tech Wiesn</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Datenschutzerklärung – Tech Wiesn</title>
+
+  <!--
+    Designvorgaben „warmer Wiesn‑Abend im Weinzelt“:
+    Primär: Weinrot #7A1F1F, Holzbraun #8B5E3C, Creme #F5EFE6
+    Sekundär/Akzent: Nachtblau #1E3A8A, Salbeigrün #4F6F52 (sparsam)
+    Text/Neutrals: #111827, #6B7280, #E5E7EB
+  -->
+
+  <style>
+    :root{
+      --weinrot:#7A1F1F;
+      --holz:#8B5E3C;
+      --creme:#F5EFE6;
+      --nachtblau:#1E3A8A;
+      --salbei:#4F6F52;
+      --text:#111827;
+      --muted:#6B7280;
+      --border:#E5E7EB;
+      --radius:16px;
+      --shadow:0 10px 24px rgba(17,24,39,.08);
+    }
+
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:var(--creme);
+      line-height:1.65;
+      font-size:16px;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Bokeh-Header */
+    header{
+      position:relative;
+      padding:64px 20px 56px;
+      text-align:center;
+      color:#fff;
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 600px at 10% 20%, rgba(255,215,180,.35), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(255,196,140,.28), transparent 55%),
+        linear-gradient(180deg, rgba(122,31,31,.96), rgba(139,94,60,.94));
+      backdrop-filter: blur(0.6s);
+    }
+    header h1{
+      margin:0 0 8px;
+      font-size:clamp(28px, 3vw, 40px);
+      letter-spacing:.2px;
+    }
+    header p{
+      margin:0;
+      opacity:.92;
+      font-size:clamp(14px,1.6vw,16px);
+    }
+
+    /* Container & Card */
+    .container{
+      max-width:980px;
+      margin: -32px auto 56px;
+      padding: 0 20px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    /* In‑Page Nav */
+    .toc{
+      background:linear-gradient(180deg,#fff, #fff);
+      border-bottom:1px solid var(--border);
+      padding:16px 20px;
+      display:flex;
+      gap:16px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:#fff;
+      text-decoration:none;
+      color:var(--nachtblau);
+      font-weight:600;
+      font-size:14px;
+      transition:transform .06s ease, box-shadow .12s ease;
+    }
+    .chip:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(30,58,138,.10)}
+
+    /* Content */
+    .content{padding:28px 24px 8px}
+    h2{
+      color:var(--weinrot);
+      margin:28px 0 8px;
+      font-size:22px;
+    }
+    h3{
+      color:var(--holz);
+      margin:20px 0 6px;
+      font-size:18px;
+    }
+    p{margin:0 0 14px}
+    ul{margin:0 0 14px 18px}
+    li{margin:6px 0}
+    a{color:var(--nachtblau);text-underline-offset:2px}
+    .note{
+      border-left:4px solid var(--holz);
+      background:#fff7ef;
+      padding:12px 14px;
+      border-radius:8px;
+    }
+    .badge{
+      display:inline-block;
+      background:var(--holz);
+      color:#fff;
+      border-radius:8px;
+      padding:2px 8px;
+      font-size:12px;
+      margin-left:6px;
+      vertical-align:middle;
+    }
+
+    /* CTA / Buttons */
+    .cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:22px 0 6px;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:700;
+      box-shadow:0 6px 14px rgba(30,58,138,.12);
+      transition:transform .06s ease, box-shadow .12s ease, opacity .2s ease;
+    }
+    .btn.primary{background:var(--nachtblau);color:#fff}
+    .btn.secondary{background:var(--weinrot);color:#fff}
+    .btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+
+    /* Footer */
+    footer{
+      max-width:980px;
+      margin:24px auto 60px;
+      color:var(--muted);
+      font-size:14px;
+      text-align:center;
+      padding:0 20px;
+    }
+
+    /* Accessibility helpers */
+    .sr-only{
+      position:absolute!important;
+      width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+      clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
+
+    /* Print */
+    @media print{
+      header{background:#fff;color:#000;border-bottom:2px solid var(--weinrot)}
+      .toc,.cta{display:none}
+      .card{box-shadow:none;border:none}
+      a{color:#000;text-decoration:underline}
+      footer{color:#000}
+    }
+  </style>
 </head>
+
 <body>
+  <header role="banner" aria-label="Tech Wiesn Datenschutzerklärung Header">
     <h1>Datenschutzerklärung</h1>
-    <p>Hier kommt deine vollständige Datenschutzerklärung hin.</p>
+    <p>Informationen nach Art. 12–14 DSGVO für Website, Registrierung & Eventdurchführung</p>
+  </header>
+
+  <main class="container" role="main">
+    <article class="card" aria-labelledby="title-legal">
+      <nav class="toc" aria-label="Inhaltsverzeichnis">
+        <a class="chip" href="#verantwortlicher">Verantwortlicher</a>
+        <a class="chip" href="#arten-zwecke">Daten & Zwecke</a>
+        <a class="chip" href="#rechtsgrundlagen">Rechtsgrundlagen</a>
+        <a class="chip" href="#empfaenger">Empfänger/Drittland</a>
+        <a class="chip" href="#cookies">Cookies & Analyse</a>
+        <a class="chip" href="#medien">Foto/Video & Werbung</a>
+        <a class="chip" href="#rechte">Ihre Rechte</a>
+        <a class="chip" href="#haftung">Haftung & Links</a>
+        <a class="chip" href="#stand">Stand</a>
+      </nav>
+
+      <div class="content">
+        <h2 id="verantwortlicher">1. Verantwortlicher</h2>
+        <p><strong>Tech Wiesn GmbH</strong><br>
+          Musterstraße 1, 80331 München, Deutschland<br>
+          E-Mail: <a href="mailto:datenschutz@techwiesn.de">datenschutz@techwiesn.de</a><br>
+          Telefon: +49 (0)89 0000 0000
+        </p>
+        <p><strong>Datenschutzbeauftragte*r (falls bestellt)</strong><br>
+          Muster DSB, c/o Tech Wiesn GmbH, o. g. Anschrift<br>
+          E-Mail: <a href="mailto:dsb@techwiesn.de">dsb@techwiesn.de</a>
+        </p>
+
+        <h2 id="arten-zwecke">2. Kategorien personenbezogener Daten & Zwecke der Verarbeitung</h2>
+        <h3>2.1 Website & Hosting</h3>
+        <ul>
+          <li>Server‑Logdaten (IP‑Adresse, Datum/Zeit, User‑Agent, Referrer) zur Sicherstellung von Stabilität und IT‑Sicherheit.</li>
+          <li>Technisch erforderliche Cookies zur Bereitstellung der Websitefunktionen.</li>
+        </ul>
+
+        <h3>2.2 Registrierung / Ticketing / Einlass</h3>
+        <ul>
+          <li>Stammdaten (Name, Firma, Position), Kontaktdaten (E‑Mail, Telefon), Ticket‑ und Teilnehmer‑IDs.</li>
+          <li>Zwecke: Teilnehmerverwaltung, Kommunikation, Check‑in, Sitz-/Zutrittslogik, Notfallmanagement.</li>
+        </ul>
+
+        <h3>2.3 Kommunikation & Marketing</h3>
+        <ul>
+          <li>Newsletter/Einladungen (Double‑Opt‑In), Response‑Tracking (Öffnungen/Klicks; nur mit Einwilligung).</li>
+          <li>CRM‑Pflege (Business‑Kontaktdaten), Nachbereitung der Veranstaltung.</li>
+        </ul>
+
+        <h3>2.4 Foto‑/Videoaufnahmen <span class="badge">Event</span></h3>
+        <ul>
+          <li>Aufnahmen von der Veranstaltung, auf denen Teilnehmer erkennbar sein können.</li>
+          <li>Zwecke: Dokumentation, Berichterstattung und <strong>Öffentlichkeitsarbeit/Werbung</strong> (Website, Social Media, Presse, Print, Aftermovie).</li>
+          <li>Gesonderte Einwilligung wird im Anmeldeprozess per Checkbox eingeholt (nicht vorangekreuzt); Opt‑out‑Möglichkeit vor Ort.</li>
+        </ul>
+
+        <h2 id="rechtsgrundlagen">3. Rechtsgrundlagen (Art. 6 DSGVO)</h2>
+        <ul>
+          <li>Vertrag/Anbahnung (Art. 6 Abs. 1 lit. b): Registrierung, Ticketing, Einlass, Kommunikation zur Durchführung.</li>
+          <li>Berechtigte Interessen (Art. 6 Abs. 1 lit. f): IT‑Sicherheit, Betrugsprävention, interne Organisation, grundlegende Reichweitenmessung (sofern berechtigt ausgestaltet).</li>
+          <li>Einwilligung (Art. 6 Abs. 1 lit. a): Newsletter/Marketing, optionale Tracking‑/Analyse‑Cookies, <strong>Verwendung von Foto-/Videoaufnahmen zu Werbezwecken</strong>.</li>
+          <li>Rechtliche Pflichten (Art. 6 Abs. 1 lit. c): z. B. handels‑/steuerrechtliche Aufbewahrungsfristen.</li>
+        </ul>
+
+        <h3>3.1 Pflicht zur Bereitstellung</h3>
+        <p>Für Registrierung/Teilnahme sind bestimmte Angaben erforderlich. Ohne diese Angaben ist eine Teilnahme ggf. nicht möglich. Für <em>optionale</em> Verarbeitungen (z. B. Marketing‑Einwilligung, Mediennutzung) besteht keine Pflicht – Nachteile entstehen nicht, außer dass die jeweiligen Services nicht erbracht werden können.</p>
+
+        <h2 id="empfaenger">4. Empfänger, Auftragsverarbeitung & Drittlandtransfer</h2>
+        <ul>
+          <li><strong>Auftragsverarbeiter</strong> (Art. 28 DSGVO): Hosting/Cloud‑Dienste, Ticketing/CRM, E‑Mail‑Versand, Event‑Fotografie/Videografie. Verarbeitung nur auf dokumentierte Weisung, mit AV‑Vertrag.</li>
+          <li><strong>Drittlandtransfer</strong> (Art. 44 ff. DSGVO): Sofern Dienste außerhalb der EU/EWR eingesetzt werden, erfolgen geeignete Garantien (Standardvertragsklauseln, ggf. zusätzliche Maßnahmen); Details auf Anfrage.</li>
+          <li><strong>Externe Stellen</strong>: Presse/Medien, ausgewählte Partner (z. B. Co‑Hosts/Sponsoren) – nur bei Rechtsgrundlage oder Einwilligung.</li>
+        </ul>
+
+        <h2 id="speicherdauer">5. Speicherdauer</h2>
+        <ul>
+          <li>Registrierungs‑/Ticketdaten: bis zur vollständigen Abwicklung und gemäß gesetzlichen Aufbewahrungsfristen (idR 6–10 Jahre für abrechnungsrelevante Daten).</li>
+          <li>Server‑Logs: i. d. R. 14–60 Tage (Sicherheits-/Fehleranalyse).</li>
+          <li>Marketingdaten: bis zum Widerruf/Widerspruch oder regelmäßiger Löschläufe.</li>
+          <li>Foto-/Videoaufnahmen: bis Widerruf der Einwilligung oder Wegfall des Zwecks.</li>
+        </ul>
+
+        <h2 id="quellen">6. Quellen der Daten</h2>
+        <p>Direkt von Ihnen (Formulare, Kommunikation, Event‑Check‑in) oder über befugte Dritte (z. B. Einladungen durch Partner; stets mit entsprechender Rechtsgrundlage).</p>
+
+        <h2 id="cookies">7. Cookies, Analyse & Drittinhalte</h2>
+        <p class="note"><strong>Hinweis:</strong> Optionale Cookies/Tools werden erst nach Ihrer Einwilligung gesetzt („Opt‑In“). Sie können Ihre Auswahl jederzeit im Cookie‑Banner ändern.</p>
+        <h3>7.1 Technisch erforderliche Cookies</h3>
+        <p>Dienen der Auslieferung der Website, Sicherheit, Formularfunktionen, Session‑Handling. Rechtsgrundlage: Art. 6 Abs. 1 lit. f (berechtigtes Interesse an funktionsfähiger Website).</p>
+        <h3>7.2 Analyse/Marketing</h3>
+        <p>Je nach Konfiguration: z. B. Matomo (self‑hosted) oder vergleichbare Tools. Rechtsgrundlage: Art. 6 Abs. 1 lit. a (Einwilligung). IP‑Anonymisierung, Speicherfristen & Opt‑Out werden im Cookie‑Banner erläutert.</p>
+        <h3>7.3 Eingebettete Inhalte</h3>
+        <p>Bei Einbindung von Videos/Maps/Sozialen Medien können Drittanbieter Cookies setzen. Diese werden ohne Ihre Einwilligung nicht geladen (Two‑Click‑Lösung, falls aktiviert).</p>
+
+        <h2 id="medien">8. Foto‑/Videoaufnahmen & Nutzung zu Werbezwecken</h2>
+        <p>Im Rahmen der Tech Wiesn werden Foto‑ und Videoaufnahmen erstellt. Diese können Teilnehmer erkennbar zeigen.</p>
+        <h3>8.1 Zwecke der Nutzung</h3>
+        <ul>
+          <li>Dokumentation und Nachberichterstattung (Website, Blog, Newsletter).</li>
+          <li><strong>Öffentlichkeitsarbeit & Werbung</strong>: Social‑Media‑Kanäle, Pressearbeit, Print/Online‑Publikationen, Sponsorendecks, Aftermovies, künftige Tech‑Wiesn‑Promotion.</li>
+        </ul>
+        <h3>8.2 Rechtsgrundlage & Einwilligung</h3>
+        <ul>
+          <li>Die <strong>Verwendung zu Werbezwecken</strong> erfolgt auf Grundlage Ihrer <strong>Einwilligung</strong> (Art. 6 Abs. 1 lit. a DSGVO), die im Rahmen der Anmeldung über eine <em>separate, nicht vorangekreuzte</em> Checkbox abgefragt wird.</li>
+          <li>Die Einwilligung ist <strong>freiwillig</strong>, nicht für die Teilnahme erforderlich und kann jederzeit mit Wirkung für die Zukunft <strong>widerrufen</strong> werden (Art. 7 Abs. 3 DSGVO), z. B. per E‑Mail an <a href="mailto:datenschutz@techwiesn.de">datenschutz@techwiesn.de</a>.</li>
+        </ul>
+        <h3>8.3 Hinweise vor Ort & Opt‑out‑Möglichkeiten</h3>
+        <ul>
+          <li>Vor Ort weisen wir sichtbar auf laufende Aufnahmen hin (Beschilderung).</li>
+          <li>Auf Wunsch bieten wir markierte Bereiche/Sitzplätze oder Kennzeichnungen (z. B. Sticker) an, um eine Aufnahme möglichst zu vermeiden.</li>
+          <li>Bei Gruppen‑/Atmosphärenaufnahmen achten wir auf zurückhaltende Erkennbarkeit. Nahporträts erstellen/publizieren wir zu Werbezwecken nur mit Einwilligung.</li>
+        </ul>
+        <h3>8.4 Rechte an Aufnahmen</h3>
+        <p>Es werden keine ausschließlichen Nutzungsrechte an Dritte übertragen, ausgenommen Presse/Partner im Rahmen der Berichterstattung. Eine kommerzielle Weitergabe an Unbeteiligte erfolgt nicht ohne gesonderte Zustimmung.</p>
+
+        <h2 id="rechte">9. Ihre Rechte (Art. 15–21 DSGVO)</h2>
+        <ul>
+          <li><strong>Auskunft</strong> über die verarbeiteten personenbezogenen Daten.</li>
+          <li><strong>Berichtigung</strong> unrichtiger Daten, <strong>Löschung</strong> bzw. <strong>Einschränkung</strong> der Verarbeitung.</li>
+          <li><strong>Datenübertragbarkeit</strong> (bereitgestellt in einem gängigen, strukturierten, maschinenlesbaren Format).</li>
+          <li><strong>Widerspruch</strong> gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO), insbesondere gegen Direktwerbung.</li>
+          <li><strong>Widerruf</strong> erteilter Einwilligungen für die Zukunft.</li>
+        </ul>
+        <p>Zur Ausübung Ihrer Rechte genügt eine Nachricht an <a href="mailto:datenschutz@techwiesn.de">datenschutz@techwiesn.de</a>. Zudem haben Sie das Recht, bei einer Datenschutzaufsichtsbehörde Beschwerde einzulegen (insb. Bayern: Bayerisches Landesamt für Datenschutzaufsicht).</p>
+
+        <h2 id="sicherheit">10. Datensicherheit</h2>
+        <p>Wir treffen angemessene technische und organisatorische Maßnahmen (u. a. Zugriffskontrollen, Verschlüsselung, Protokollierung, Berechtigungskonzepte), um Ihre Daten vor Verlust, Missbrauch oder unbefugtem Zugriff zu schützen. Unsere Dienstleister werden sorgfältig ausgewählt und vertraglich verpflichtet.</p>
+
+        <h2 id="haftung">11. Haftungsausschlüsse & externe Links</h2>
+        <ul>
+          <li><strong>Externe Links:</strong> Für Inhalte verlinkter Seiten Dritter übernehmen wir keine Gewähr. Für diese Inhalte ist stets der jeweilige Anbieter verantwortlich.</li>
+          <li><strong>Fremdinhalte bei Einbettungen:</strong> Bei aktivierten Drittinhalten (z. B. Videos) sind deren Nutzungs‑/Datenschutzbedingungen maßgeblich.</li>
+          <li><strong>Keine Rechtsberatung:</strong> Diese Informationen ersetzen keine individuelle Rechtsberatung für Dritte.</li>
+        </ul>
+
+        <h2 id="aenderungen">12. Änderungen dieser Erklärung</h2>
+        <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, wenn dies aufgrund technischer Änderungen, geänderter Dienste oder rechtlicher Vorgaben erforderlich ist. Die jeweils aktuelle Fassung wird hier veröffentlicht.</p>
+
+        <h2 id="kontakt">13. Kontakt</h2>
+        <p>Fragen zum Datenschutz richten Sie bitte an <a href="mailto:datenschutz@techwiesn.de">datenschutz@techwiesn.de</a>.</p>
+
+        <h2 id="stand">14. Stand</h2>
+        <p>9. August 2025</p>
+
+        <div class="cta" aria-label="Kontaktmöglichkeiten">
+          <a class="btn primary" href="mailto:datenschutz@techwiesn.de">Datenschutz‑Kontakt</a>
+          <a class="btn secondary" href="#verantwortlicher">Impressum/Verantwortlicher</a>
+        </div>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2025 Tech Wiesn GmbH · Diese Seite nutzt ein warmes Bokeh‑Design (öffentlich weichgezeichnet; nach Login schärfer darstellbar).
+    </footer>
+  </main>
 </body>
 </html>
